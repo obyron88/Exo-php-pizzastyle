@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <script src="jquery-3.2.1.js"></script>
+  <link rel="stylesheet"href="Style.css"/>
+  <title>Exo-php-pizzastyle</title>
+</head>
+<body>
+  <form method="post" action="Index.html">
+    <input placeholder="Titre" value="" name="titre">
+    <input type="file" value="" name="image">
+    <input placeholder="Article" value="" name="article">
+    <input type="submit" value="Envoyer">
+
+    <?php
+
+    include("connect.php");
+
+  $article = $_POST['article'];
+  $image = $_POST['image'];
+  $titre = $_POST['titre'];
+
+
+
+    $req = $pdo->prepare("INSERT INTO Journal (Article, Date, Image, Titre)
+    VALUES (:Article, :Date, :Image, :Titre)");
+
+    $req->execute(array(
+        'Article' => $article,
+        'Image' => $image,
+        'Titre' => $titre,
+
+    ));
+
+    print_r($pdo->errorInfo());
+    ?>
+
+  </form>
+</body>
+</html>
